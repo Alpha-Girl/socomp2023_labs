@@ -59,3 +59,6 @@ visual_style["vertex_size"]=10
 visual_style["edge_width"] = [min(int(i)+int(j)+int(k)/10,7) for i,j,k in zip(g.es["sc"],g.es["cs"],g.es["cc"])]
 layout=g.layout("graphopt")
 ig.plot(g, "social_network.pdf", layout=layout ,**visual_style)
+for i in range(len(g.vs)):
+    print(g.vs[i]["name"],g.vs[i]["id"],g.degree(i))
+print(g.maxdegree())

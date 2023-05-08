@@ -4,7 +4,8 @@ import igraph as ig
 # # ig.save(petersen, 'petersen.png')
 # print(petersen)
 import csv
-csvfile = open('1020.csv', 'r')
+import matplotlib.pyplot as plt
+csvfile = open('1020 copy.csv', 'r')
 reader = csv.reader(csvfile)
 name=[]
 id=[]
@@ -57,11 +58,18 @@ for line in reader:
             # g.es[-1]["sc"]=line[2]
             # g.es[-1]["cs"]=line[3]
             # g.es[-1]["cc"]=line[4]
-visual_style["vertex_size"]=10
-e_color_dist=["green","yellow"]
+visual_style["vertex_size"]=5
+e_color_dist=["green","purple"]
 # visual_style["edge_width"] = [i+j+k for i,j,k in zip(g.es["sc"],g.es["cs"],g.es["cc"])]
 # visual_style["edge_width"] = [min(int(i)+int(j)+int(k)/10,7) for i,j,k in zip(g.es["sc"],g.es["cs"],g.es["cc"])]
 visual_style["edge_color"] = [ e_color_dist[0] if float(i)>0 else e_color_dist[1] for i in g.es["dist"]]
-layout=g.layout("graphopt")
-ig.plot(g, "social_network_0.pdf", layout=layout ,**visual_style)
+visual_style["edge_width"] = [ 1 for i in g.es["dist"]]
+layout=g.layout("circle")
+# plt.figure()
+fig, ax = plt.subplots(1,1)
+plt.rcParams(figsize=(2000,2000))
+ig.plot(g, layout=layout ,**visual_style)
+fig.savefig("social_network_102_0.pdf")
+
+# ig.plot(g, "social_network_0.pdf", layout=layout ,**visual_style)
 csvfile.close()
